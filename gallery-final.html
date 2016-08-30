@@ -10,9 +10,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 <script>
-
+// show hidden image when purple box is clicked on
 function showImage(element){
-
+// link to source images
     var img1 = "http://www.theroot.com/wp-content/uploads/2016/04/51931433-musician-prince-presents-the-award-for-favorite-leading_2.jpg";
     var img2 = "http://www.billboard.com/files/media/prince-evolution-31march1981-500.jpg";
     var img3 ="http://www.theroot.com/wp-content/uploads/2016/04/522909626-this-photo-taken-on-may-4-1994-shows-musician-prince_1.jpg" ;
@@ -20,13 +20,14 @@ function showImage(element){
     var img5 = "http://www.billboard.com/files/media/2014-march-prince-style-billboard-1000.jpg" ;
     var img6 ="http://www.billboard.com/files/media/prince-evolution-19feb1985-2-500.jpg";
 
-
+// list from source images
     var imgs = [img1, img2, img3, img4, img5, img6]
 
     
-
+// why did I create this var?
     var x = document.getElementsByTagName("IMG");
-
+// assign each "hidden image" to a box
+// HOW COULD I RANDOMIZE THIS ASSIGNMENT SO THAT EACH COMBINATION IS UNIQUE ON PAGE LOAD
     for ( var index=0; index< imgs.length; index++){
         console.log(element.id);
 
@@ -57,7 +58,7 @@ function showImage(element){
 
     
 }
-
+// return box to solid purple field
 function unDo(element){
 
     var square = document.getElementsByTagName("IMG");
@@ -70,7 +71,7 @@ function unDo(element){
 }
 
 function itMatches(element){
-    /*if an image is clicked on twice, remove UnDo*/
+    // if two consequtive click reveal the same source image, remove UnDo function
 }
 
     
@@ -133,7 +134,7 @@ function itMatches(element){
 <h1> In Memory of Prince </h1>
 <p> The game of memory created with outstanding photographs of Prince. Click on any box to start matching.</p>
 
-
+<!-- twelve squares are solid purple fields. onclick event reveals image of prince. onmouseleave event returns square to purple -->
     
   <div class="container">
         
