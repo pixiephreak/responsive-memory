@@ -1,90 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <title>Prince Memory</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-<script>
-// show hidden image when purple box is clicked on
-function showImage(element){
-// link to source images
-    var img1 = "http://www.theroot.com/wp-content/uploads/2016/04/51931433-musician-prince-presents-the-award-for-favorite-leading_2.jpg";
-    var img2 = "http://www.billboard.com/files/media/prince-evolution-31march1981-500.jpg";
-    var img3 ="http://www.theroot.com/wp-content/uploads/2016/04/522909626-this-photo-taken-on-may-4-1994-shows-musician-prince_1.jpg" ;
-    var img4 ="http://www.billboard.com/files/media/prince-evolution-18oct1988-500.jpg" ;
-    var img5 = "http://www.billboard.com/files/media/2014-march-prince-style-billboard-1000.jpg" ;
-    var img6 ="http://www.billboard.com/files/media/prince-evolution-19feb1985-2-500.jpg";
-
-// list from source images
-    var imgs = [img1, img2, img3, img4, img5, img6]
-
-    
-// why did I create this var?
-    var x = document.getElementsByTagName("IMG");
-// assign each "hidden image" to a box
-// HOW COULD I RANDOMIZE THIS ASSIGNMENT SO THAT EACH COMBINATION IS UNIQUE ON PAGE LOAD
-    for ( var index=0; index< imgs.length; index++){
-        console.log(element.id);
-
-        if (element.id === "thumbnail_11" || element.id === "thumbnail_4"){
-            document.getElementById(element.id).src = imgs[4]
-        }
-
-        if (element.id === "thumbnail_2" || element.id === "thumbnail_6") {
-        document.getElementById(element.id).src = imgs[0];
-        }
-
-        if (element.id === "thumbnail_10" || element.id === "thumbnail_7") {
-        document.getElementById(element.id).src = imgs[5];
-        }
-
-        if (element.id === "thumbnail_5" || element.id === "thumbnail_8") {
-        document.getElementById(element.id).src = imgs[2];
-        }
-
-        if (element.id === "thumbnail_9" || element.id === "thumbnail_1") {
-        document.getElementById(element.id).src = imgs[1];
-        }
-
-        if (element.id === "thumbnail_3" || element.id === "thumbnail_12") {
-        document.getElementById(element.id).src = imgs[3];
-        }
-}
-
-    
-}
-// return box to solid purple field
-function unDo(element){
-
-    var square = document.getElementsByTagName("IMG");
-
-    for ( var index=0; index< square.length; index++){
-        square[index].src = "http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=3864424";
-    }
-
-
-}
-
-function itMatches(element){
-    // if two consequtive click reveal the same source image, remove UnDo function
-}
-
-    
-
-    
-
-
-</script>
-
 <style type="text/css">
-
-
-
     .square{
         min-height: 200px;
         max-height: 250px;
@@ -92,8 +14,7 @@ function itMatches(element){
         -webkit-border-radius: 20px;
         -moz-border-radius: 20px;
     }
-
-    h1{
+    h1 {
         text-align: center;
         margin: 2%;
 
@@ -119,7 +40,7 @@ function itMatches(element){
         margin: 2%;
     }
 
-    p{ 
+    p{
         font-size: 1em;
         margin: 2%;
      }
@@ -128,69 +49,112 @@ function itMatches(element){
 
 </style>
 </head>
+<script>
+
+// Try adding a few more urls. Another extension would be to get this list of
+// urls from something like flickr or an api.
+var princeImages = [
+    "http://www.theroot.com/wp-content/uploads/2016/04/51931433-musician-prince-presents-the-award-for-favorite-leading_2.jpg",
+    "http://www.billboard.com/files/media/prince-evolution-31march1981-500.jpg",
+    "http://www.theroot.com/wp-content/uploads/2016/04/522909626-this-photo-taken-on-may-4-1994-shows-musician-prince_1.jpg" ,
+    "http://www.billboard.com/files/media/prince-evolution-18oct1988-500.jpg" ,
+    "http://www.billboard.com/files/media/2014-march-prince-style-billboard-1000.jpg" ,
+    "http://www.billboard.com/files/media/prince-evolution-19feb1985-2-500.jpg",
+];
+
+// For any number of matches it will produce pairs organized into a grid
+function makeBoard(numMatches) {
+
+    var matches = [];
+
+    // Generate a list of matches
+    for(var i = 0; i < numMatches * 2; i+=2) {
+
+        // Get a random index from [0, princeImages.length - 1]
+        var index = Math.floor(Math.random() * princeImages.length);
+
+        // Get the url
+        var princeImage = princeImages[index];
+
+        // Make 2 matches, with same prince image
+        matches.push(createBox(princeImage, i));
+        matches.push(createBox(princeImage, i + 1));
+    }
+
+    // Scramble all the matches
+    matches = matches.sort(function(a, b) {
+        // Randomly return 1 or -1
+        var random = Math.random();
+        if (random > 0.5) {
+            return 1;
+        } else {
+            return -1;
+        }
+    })
+
+    // Get the html element that has a class of "row"
+    var row = document.querySelector(".row");
+
+    // Attach all the matches to the row
+    for (var i = 0; i < matches.length; i++) {
+        row.appendChild(matches[i]);
+    }
+
+}
+
+// Returns a single box. Technically it is a js element, which is js's name for
+// an html tag.
+function createBox(princeUrl, index) {
+
+    var defaultBg = "http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=3864424";
+
+    var div = document.createElement("div");
+    div.setAttribute("class", "col-xs-4 col-sm-3 col-md-3 col-lg-2.5 img thumbnail");
+
+    var img = document.createElement("img");
+    img.setAttribute("id", "box" + index);
+    img.setAttribute("alt", "square");
+    img.setAttribute("src", defaultBg);
+    img.setAttribute("class", "square");
+
+    // Defined what to do when the image is clicked
+    img.onclick = function() {
+
+        // Switch to prince url
+        img.setAttribute("src", princeUrl);
+
+        // After 2 seconds switch to default bg
+        setTimeout(function() {
+            img.setAttribute("src", defaultBg);
+        }, 2000 /* this is in milliseconds */);
+    };
+
+    // Add the image tag as a child of the div
+    div.appendChild(img);
+
+    // Return the div
+    return div;
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    // This code doesn't get run until the browser has read the entire page.
+    // It's just a convention to start our application /after/ the browser does
+    // the dirty work of reading and loading things.
+
+    // Make a board with 12 matches, or 24 boxes
+    makeBoard(12);
+});
+
+</script>
 
 <body >
 
 <h1> In Memory of Prince </h1>
 <p> The game of memory created with outstanding photographs of Prince. Click on any box to start matching.</p>
-
-<!-- twelve squares are solid purple fields. onclick event reveals image of prince. onmouseleave event returns square to purple -->
-    
-  <div class="container">
-        
-        <div class="row" >
-
-            <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2.5 img thumbnail ">
-            <img id="thumbnail_1" class="square" alt="square" src="http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=3864424" onclick="showImage(this)"; onmouseleave="unDo(this)" ; >
-            </div>
-           
-             <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2.5 img thumbnail ">
-            <img id="thumbnail_2" class="square" alt="square" src="http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=3864424" onclick="showImage(this)" onmouseleave="unDo(this)">
-            </div>
-
-              <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2.5 img thumbnail ">
-            <img id="thumbnail_3" class="square" alt="square" src="http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=3864424" onclick="showImage(this)" onmouseleave="unDo(this)">
-            </div>
-
-            <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2.5 img thumbnail ">
-            <img id="thumbnail_4" class="square" alt="square" src="http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=3864424" onclick="showImage(this)" onmouseleave="unDo(this)">
-            </div>
-
-            <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2.5 img thumbnail ">
-            <img id="thumbnail_5" class="square" alt="square" src="http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=3864424" onclick="showImage(this)" onmouseleave="unDo(this)">
-            </div>
-
-            <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2.5 img thumbnail ">
-            <img id="thumbnail_6" class="square" alt="square" src="http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=3864424" onclick="showImage(this)" onmouseleave="unDo(this)">
-            </div>
-
-            <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2.5 img thumbnail ">
-            <img id="thumbnail_7" class="square" alt="square" src="http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=3864424" onclick="showImage(this)" onmouseleave="unDo(this)">
-            </div>
-
-            <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2.5 img thumbnail ">
-            <img id="thumbnail_8" class="square" alt="square" src="http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=3864424" onclick="showImage(this)" onmouseleave="unDo(this)">
-            </div>
-
-            <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2.5 img thumbnail ">
-            <img id="thumbnail_9" class="square" alt="square" src="http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=3864424" onclick="showImage(this)" onmouseleave="unDo(this)">
-            </div>
-
-            <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2.5 img thumbnail ">
-            <img id="thumbnail_10" class="square" alt="square" src="http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=3864424" onclick="showImage(this)" onmouseleave="unDo(this)">
-            </div>
-
-            <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2.5 img thumbnail ">
-            <img id="thumbnail_11" class="square" alt="square" src="http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=3864424" onclick="showImage(this)" onmouseleave="unDo(this)">
-            </div>
-
-            <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2.5 img thumbnail ">
-            <img id="thumbnail_12" class="square" alt="square" src="http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=3864424" onclick="showImage(this)" onmouseleave="unDo(this)">
-            </div>
-           
-
-        </div>
+    <!-- Some empty html that js will manipulate -->
+    <div class="container">
+        <div class="row" ></div>
     </div>
 </body>
-</html>                                  
+</html>
 
