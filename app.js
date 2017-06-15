@@ -18,20 +18,11 @@ function showGif() {
         imgUrl = results[i].images.fixed_height.url;
         imgUrlstill = 'http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=3864424';
 
-        // var container = $('div');
-        // container.attr('class', 'container');
-        // var row = $('row');
-        // row.attr('class', 'row');
-        // var princeDiv = $('div');
         var princeImg = $('<img>');
         princeImg.attr('class', 'col-xs-4 col-sm-3 col-md-3 col-lg-2.5 img thumbnail');
         princeImg.attr('src', imgUrlstill).attr('class', 'card img-fluid img-thumbnail').attr('data-state', 'still').attr('data-still', imgUrlstill).attr('data-animate', imgUrl);
-
         $('.container').append(princeImg);
-        // row.append(princeDiv);
-        // $('container').append(row);
 
-        // imgArr.push(princeDiv);
       }
     }
     // console.log(imgArr);
@@ -47,7 +38,7 @@ function showGif() {
       card2 = $(this).attr('data-animate');
       console.log('card1: ',card1,' ','setting card2: ',card2)
       if( card1 === card2){
-        console.log('match!');
+        setTimeout(function(){ alert("MATCH!")}, 1000);
         card1=undefined;
         card2=undefined;
       }else{
@@ -62,6 +53,11 @@ function showGif() {
     if ($(this).attr('data-state') == 'still') {
       $(this).attr('src', $(this).attr('data-animate'));
       $(this).attr('data-state', 'animate');
+      setTimeout(function(){
+        console.log('still');
+        $(this).attr('src', $(this).attr('data-still'));
+        $(this).attr('data-state', 'still');
+      }, 2000);
     } else {
       $(this).attr('src', $(this).attr('data-still'));
       $(this).attr('data-state', 'still');
