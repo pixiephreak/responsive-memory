@@ -1,0 +1,40 @@
+    .square{
+        min-height: 200px;
+        max-height: 250px;
+        border-radius: 20px
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+    }
+
+    h1{
+        text-align: center;
+        margin: 2%;
+
+    }
+
+    p{
+        text-align: center;
+        font-size: 2em;
+        margin: 2%;
+    }
+
+
+    @media only screen and (max-width: 900px) {
+    .square{
+        max-height: 200px;
+        border-radius: 20px
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+    }
+
+    h1{
+        font-size: 2em;
+        margin: 2%;
+    }
+
+    p{
+        font-size: 1em;
+        margin: 2%;
+     }
+
+}
