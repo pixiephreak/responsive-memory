@@ -51,12 +51,13 @@ function showGif() {
     var state = $(this).attr('data-state');
 
     if ($(this).attr('data-state') == 'still') {
+      var self = $(this)
       $(this).attr('src', $(this).attr('data-animate'));
       $(this).attr('data-state', 'animate');
       setTimeout(function(){
-        console.log('still');
-        $(this).attr('src', $(this).attr('data-still'));
-        $(this).attr('data-state', 'still');
+        self.attr('src', self.attr('data-still'));
+        self.attr('data-state', 'still');
+        console.log(self.attr('src'), self.attr('data-state'))
       }, 2000);
     } else {
       $(this).attr('src', $(this).attr('data-still'));
