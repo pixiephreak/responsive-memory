@@ -13,55 +13,67 @@ function showGif() {
   $.ajax({url: queryURL, method: "GET"}).done(function(response) {
     var results = response.data;
     console.log(results.length);
+    var count = 1;
     for (let j = 0; j < 2; j++) {
       for (var i = 0; i < results.length; i++) {
-        imgUrl = results[i].images.fixed_height.url;
+        imgUrl = results[i].images.fixed_width.url;
         imgUrlstill = 'http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=3864424';
 
         var princeImg = $('<img>');
-        princeImg.attr('class', 'col-xs-4 col-sm-3 col-md-3 col-lg-2.5 img thumbnail');
+        princeImg.attr('class', 'col-xs-4 col-sm-3 col-md-3 col-lg-2 img thumbnail');
         princeImg.attr('src', imgUrlstill).attr('class', 'card img-fluid img-thumbnail').attr('data-state', 'still').attr('data-still', imgUrlstill).attr('data-animate', imgUrl);
+        princeImg.attr('id', `gif${count}`);
         $('.container').append(princeImg);
-
+        count++;
       }
     }
     // console.log(imgArr);
   });
-  var card1, card2;
+  var card1, card2, lastClicked;
   $(document).on("click", ".card", function() {
     console.log('card1: ',card1,'card2: ',card2)
-
-    if(card1===undefined){
-      card1= $(this).attr('data-animate');
-      console.log('setting card1: ',card1);
-    }else if(card1 != undefined && card2=== undefined){
-      card2 = $(this).attr('data-animate');
-      console.log('card1: ',card1,' ','setting card2: ',card2)
-      if( card1 === card2){
-        setTimeout(function(){ alert("MATCH!")}, 1000);
-        card1=undefined;
-        card2=undefined;
-      }else{
-        card1=undefined;
-        card2=undefined;
-      }
+    console.log(lastClicked);
+    if($(this).attr('id') == lastClicked){
+      alert("Don't click that twice!");
+    }else{
+      lastClicked = $(this).attr('id');
+      if(card1===undefined){
+        card1= $(this).attr('data-animate');
+        console.log('setting card1: ',card1);
+      }else if(card1 != undefined && card2=== undefined){
+        card2 = $(this).attr('data-animate');
+        console.log('card1: ',card1,' ','setting card2: ',card2)
+        if( card1 === card2){
+          setTimeout(function(){ alert("MATCH!")}, 1000);
+          card1=undefined;
+          card2=undefined;
+          lastClicked=undefined;
+        }else{
+          card1=undefined;
+          card2=undefined;
+          lastClicked=undefined;
+        }
     }
 
-//TODO use set timeout to set state to animate for 3 seconds;
-    var state = $(this).attr('data-state');
+    }
 
+//TODO cancel set timeout if a match
+function checkState(){
+
+}
+    var state = $(this).attr('data-state');
+    var self = $(this);
     if ($(this).attr('data-state') == 'still') {
-      var self = $(this)
-      $(this).attr('src', $(this).attr('data-animate'));
-      $(this).attr('data-state', 'animate');
+      self.attr('src', $(this).attr('data-animate'));
+      self.attr('data-state', 'animate');
       setTimeout(function(){
         self.attr('src', self.attr('data-still'));
         self.attr('data-state', 'still');
         console.log(self.attr('src'), self.attr('data-state'))
-      }, 2000);
+      }, 4000);
     } else {
-      $(this).attr('src', $(this).attr('data-still'));
-      $(this).attr('data-state', 'still');
+      self.attr('src', $(this).attr('data-still'));
+      self.attr('data-state', 'still');
     }
   });
 };
