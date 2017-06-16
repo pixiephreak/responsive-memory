@@ -12,7 +12,7 @@ function showGif() {
   //call
   $.ajax({url: queryURL, method: "GET"}).done(function(response) {
     var results = response.data;
-    console.log(results.length);
+    console.log(results);
     var count = 1;
     for (let j = 0; j < 2; j++) {
       for (var i = 0; i < results.length; i++) {
@@ -20,8 +20,7 @@ function showGif() {
         imgUrlstill = 'http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=3864424';
 
         var princeImg = $('<img>');
-        princeImg.attr('class', 'col-xs-4 col-sm-3 col-md-3 col-lg-2 img thumbnail');
-        princeImg.attr('src', imgUrlstill).attr('class', 'card img-fluid img-thumbnail').attr('data-state', 'still').attr('data-still', imgUrlstill).attr('data-animate', imgUrl);
+        princeImg.attr('src', imgUrlstill).attr('class', 'card img-fluid img-thumbnail square').attr('data-state', 'still').attr('data-still', imgUrlstill).attr('data-animate', imgUrl);
         princeImg.attr('id', `gif${count}`);
         $('.container').append(princeImg);
         count++;

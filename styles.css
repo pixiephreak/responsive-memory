@@ -1,6 +1,6 @@
     .square{
-        min-height: 100px;
-        max-height: 150px;
+        min-height: 200px;
+        max-height: 250px;
         border-radius: 20px
         -webkit-border-radius: 20px;
         -moz-border-radius: 20px;
