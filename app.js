@@ -15,6 +15,15 @@ function showGif() {
     console.log(results);
     var count = 1;
     for (let j = 0; j < 2; j++) {
+      results= results.sort(function(a, b) {
+        // Randomly return 1 or -1
+        var random = Math.random();
+        if (random > 0.5) {
+          return 1;
+        } else {
+          return -1;
+        }
+      })
       for (var i = 0; i < results.length; i++) {
         imgUrl = results[i].images.fixed_width.url;
         imgUrlstill = 'http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=3864424';
@@ -70,9 +79,9 @@ function showGif() {
     }
 
     function flipCard() {
-        self.attr('src', self.attr('data-still'));
-        self.attr('data-state', 'still');
-        console.log(self.attr('src'), self.attr('data-state'));
+      self.attr('src', self.attr('data-still'));
+      self.attr('data-state', 'still');
+      console.log(self.attr('src'), self.attr('data-state'));
     }
     var self = $(this);
     if (self.attr('data-state') == 'still') {
@@ -82,7 +91,7 @@ function showGif() {
     }
   });
 
-  $(document).on("click", ".matched", function(){
+  $(document).on("click", ".matched", function() {
     alert('already matched')
   });
 };
