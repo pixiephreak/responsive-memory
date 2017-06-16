@@ -29,51 +29,61 @@ function showGif() {
     }
     // console.log(imgArr);
   });
-  var card1, card2, lastClicked;
+  var card1,
+    card2,
+    lastClicked;
+
   $(document).on("click", ".card", function() {
-    console.log('card1: ',card1,'card2: ',card2)
-    console.log(lastClicked);
-    if($(this).attr('id') == lastClicked){
+    console.log('card1: ', card1, 'card2: ', card2)
+    if ($(this).attr('id') == lastClicked) {
       alert("Don't click that twice!");
-    }else{
+      card1 = undefined;
+      card2 = undefined;
+      lastClicked = undefined;
+    } else {
       lastClicked = $(this).attr('id');
-      if(card1===undefined){
-        card1= $(this).attr('data-animate');
-        console.log('setting card1: ',card1);
-      }else if(card1 != undefined && card2=== undefined){
+      if (card1 === undefined) {
+        card1 = $(this).attr('data-animate');
+        console.log('setting card1: ', card1);
+      } else if (card1 != undefined && card2 === undefined) {
         card2 = $(this).attr('data-animate');
-        console.log('card1: ',card1,' ','setting card2: ',card2)
-        if( card1 === card2){
-          setTimeout(function(){ alert("MATCH!")}, 1000);
-          card1=undefined;
-          card2=undefined;
-          lastClicked=undefined;
-        }else{
-          card1=undefined;
-          card2=undefined;
-          lastClicked=undefined;
+        console.log('card1: ', card1, ' ', 'setting card2: ', card2)
+        if (card1 === card2) {
+          setTimeout(function() {
+            alert("MATCH!")
+          }, 1000);
+          card1 = undefined;
+          card2 = undefined;
+          lastClicked = undefined;
+          imgSrc = $(this).attr('data-animate');
+          $('.card').each(function(i, ele) {
+            if ($(this).attr('data-animate') == imgSrc) {
+              $(this).removeClass('card');
+              $(this).addClass('matched');
+            }
+          });
+        } else {
+          card1 = undefined;
+          card2 = undefined;
+          lastClicked = undefined;
         }
+      }
     }
 
-    }
-
-//TODO cancel set timeout if a match
-function checkState(){
-
-}
-    var state = $(this).attr('data-state');
-    var self = $(this);
-    if ($(this).attr('data-state') == 'still') {
-      self.attr('src', $(this).attr('data-animate'));
-      self.attr('data-state', 'animate');
-      setTimeout(function(){
+    function flipCard() {
         self.attr('src', self.attr('data-still'));
         self.attr('data-state', 'still');
-        console.log(self.attr('src'), self.attr('data-state'))
-      }, 4000);
-    } else {
-      self.attr('src', $(this).attr('data-still'));
-      self.attr('data-state', 'still');
+        console.log(self.attr('src'), self.attr('data-state'));
     }
+    var self = $(this);
+    if (self.attr('data-state') == 'still') {
+      self.attr('src', $(this).attr('data-animate'));
+      self.attr('data-state', 'animate');
+      setTimeout(flipCard, 4000);
+    }
+  });
+
+  $(document).on("click", ".matched", function(){
+    alert('already matched')
   });
 };
