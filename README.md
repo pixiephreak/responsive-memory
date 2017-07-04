@@ -7,7 +7,7 @@ Every time I learn a new technology, I refactor the game code.
 
 See the branches to check out each implementation.
 So far I've implemented using:
-..*1.React
+1.React
 2.jQuery
 
 Check out the deployed game [here](https://pixiephreak.github.io/responsive-memory/)
