@@ -7,41 +7,44 @@
     .square{
         min-width: 200px;
         max-width: 200px;
-        border-radius: 20px
+        border-radius: 20px;
         -webkit-border-radius: 20px;
         -moz-border-radius: 20px;
     }
 
-    h1{
+    h1 {
         text-align: center;
         margin: 2%;
-
+        font-size: 3em;
     }
 
-    p{
-        text-align: center;
-        font-size: 2em;
-        margin: 2%;
+    h2 {
+      font-size: 1.5em;
+      text-align: center;
+      margin: 2%;
     }
 
+    .input-group {
+      text-align: center;
+      margin: 0 auto;
+      width: 100%;
+    }
 
     @media only screen and (max-width: 900px) {
     .square{
         min-height: 200px;
         max-height: 200px;
-        border-radius: 20px
+        border-radius: 20px;
         -webkit-border-radius: 20px;
         -moz-border-radius: 20px;
     }
 
-    h1{
-        font-size: 2em;
-        margin: 2%;
+    h1 {
+      font-size: 2em;
     }
 
-    p{
-        font-size: 1em;
-        margin: 2%;
-     }
+    h2 {
+      font-size: 1em;
+    }
 
 }
