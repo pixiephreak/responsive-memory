@@ -19,33 +19,29 @@ class Main extends Component {
   }
 
 gifSearch(term){
-  helpers.runQuery(term).then(function(data) {
-      console.log('data: ', data.data);
-      this.setState({ gifs: data.data });
+  helpers.runQuery(term).then(function(results) {
+      this.setState({ gifs: results });
     }.bind(this));
 }
 
   render() {
     return(
 
-      <div className="container">
+      <div className = 'container'>
         {/* <!--Page Header--> */}
-        <div className="row">
-          <div className="col-md-12">
-            <div className="page-header">
+          <div className="page-header">
               <h1>In Memory of Prince</h1>
               <h2>The game of memory created with outstanding gifs of Prince. Click on any box to start matching.</h2>
-            </div>
             {/* <!--Search--> */}
             <SearchBar onTermChange={(term)=>this.gifSearch(term)}/>
-            {/* <!--List Container--> */}
-            <div className="row">
-                <ListContainer
-                  gifs = {this.state.gifs}
-                  onSelect = {selectedVideo => this.setState({selectedVideo})} />
-            </div>
           </div>
-        </div>
+           <div className="row">
+            {/* <!--List Container--> */}
+            <ListContainer
+                gifs = {this.state.gifs}
+                onSelect = {selectedVideo => this.setState({selectedVideo})} />
+           </div>
+
       </div>
     );
   }

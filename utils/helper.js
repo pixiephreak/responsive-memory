@@ -26,8 +26,18 @@ var helpers = {
       }
     })
     .then(function(results) {
-      console.log("Axios Results", results.data);
-      return results.data;
+      console.log("Axios Results", results.data.data);results.data.data
+      var results = results.data.data;
+      results= results.sort(function(a, b) {
+        // Randomly return 1 or -1
+        var random = Math.random();
+        if (random > 0.5) {
+          return 1;
+        } else {
+          return -1;
+        }
+      })
+      return results;
     });
 
   },
