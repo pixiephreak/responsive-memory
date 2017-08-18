@@ -4,7 +4,8 @@ import React, { Component } from "react";
 import axios from 'axios';
 import ListContainer from './ListContainer';
 import SearchBar from './Search_bar'
-import helpers from '../../utils/helper'
+import helpers from '../utils/helper'
+import css from '../index.css'
 
 // here is where the header and input box go
 class Main extends Component {
